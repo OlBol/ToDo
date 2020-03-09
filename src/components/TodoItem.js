@@ -1,19 +1,32 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
+import Context from '../context';
 
-function TodoItem({ todo, index, markAsDoneOrUndone }) {
+
+function TodoItem({todo, index, markAsDoneOrUndone}) {
+    const {removeTodo} = useContext(Context);
+    const classes = [];
+
+    if (todo.completed) {
+        classes.push('done');
+    }
+
     return (
-        <li>
+        <li className={classes.join(' ')}>
             <input
                 className="input"
                 type="checkbox"
                 checked={todo.completed}
-                onChange={ () => markAsDoneOrUndone(todo.id) }
+                onChange={() => markAsDoneOrUndone(todo.id)}
             />
             <span>
-                { index + 1 }. { todo.title }
+                {index + 1}. {todo.title}
             </span>
-            <button type="button" aria-label='Удалить пункт'>&times;</button>
+            <button
+                type="button"
+                aria-label='Удалить пункт'
+                onClick={() => removeTodo(todo.id)}
+            >&times;</button>
         </li>
     )
 }
