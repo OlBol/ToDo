@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import Context from '../context';
 
@@ -13,16 +13,18 @@ function TodoItem({todo, index, markAsDoneOrUndone}) {
 
     return (
         <li className={classes.join(' ')}>
-            <input
-                className="input"
-                type="checkbox"
-                checked={todo.completed}
-                onChange={() => markAsDoneOrUndone(todo.id)}
-            />
-            <span>
+            <label>
                 {index + 1}. {todo.title}
-            </span>
+                <input
+                    className="input"
+                    type="checkbox"
+                    aria-label='Отметить пункт как выполненный'
+                    checked={todo.completed}
+                    onChange={() => markAsDoneOrUndone(todo.id)}
+                />
+            </label>
             <button
+                className='del'
                 type="button"
                 aria-label='Удалить пункт'
                 onClick={() => removeTodo(todo.id)}

@@ -12,12 +12,13 @@ function App() {
         fetch('https://jsonplaceholder.typicode.com/todos?_limit=5')
             .then(response => response.json())
             .then(todos => {
-              setTimeout(() => {
-                setTodos(todos);
-                setLoading(false);
-              }, 2000);
+                setTimeout(() => {
+                    setTodos(todos);
+                    setLoading(false);
+                }, 2000);
             });
     }, []);
+
 
     function markAsDoneOrUndone(id) {
         setTodos(todos.map(todo => {
@@ -42,19 +43,20 @@ function App() {
     }
 
     return (
-        <>
+        <div className='wrapper'>
+            <h1>Todo list</h1>
             <AddTodo onCreate={addTodo}/>
             <Context.Provider value={{removeTodo}}>
-                <div className="wrapper">
+                {/*<div className="contsiner">*/}
                     {loading && <Loader/>}
                     {todos.length ? (
-                            <TodoList todos={todos} markAsDoneOrUndone={markAsDoneOrUndone}/>
-                        ) : loading ? null : (
-                            <div>Нет запланированных дел</div>
-                        )}
-                </div>
+                        <TodoList todos={todos} markAsDoneOrUndone={markAsDoneOrUndone}/>
+                    ) : loading ? null : (
+                        <div>Нет запланированных дел</div>
+                    )}
+                {/*</div>*/}
             </Context.Provider>
-        </>
+        </div>
     );
 }
 
